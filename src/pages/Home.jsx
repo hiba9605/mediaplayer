@@ -10,6 +10,8 @@ import { Link } from 'react-router-dom'
 
 
 const Home = () => {
+  
+  const [deleteResponseFromView,setDeleteResponseFromView]=useState("")
   const [deleteResponseFromCategory,setDeleteResponseFromCategory]=useState("")
   const [addResponseFromHome,setAddResponseFromHome]=useState("")
   return (
@@ -21,10 +23,10 @@ const Home = () => {
       <div className='container-fluid row my-5'>
         <div className='col-lg-6'>
           <h1>All Videos</h1>
-          <View deleteResponseFromCategory={deleteResponseFromCategory} addResponseFromHome={addResponseFromHome}/>
+          <View setDeleteResponseFromView={setDeleteResponseFromView} deleteResponseFromCategory={deleteResponseFromCategory} addResponseFromHome={addResponseFromHome}/>
         </div>
         <div className='col-lg-6'>
-          <Category setDeleteResponseFromCategory={setDeleteResponseFromCategory}/>
+          <Category deleteResponseFromView={deleteResponseFromView} setDeleteResponseFromCategory={setDeleteResponseFromCategory}/>
 
         </div>
 

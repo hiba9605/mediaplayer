@@ -57,3 +57,4 @@ export const deleteCategoryAPI=async(id)=>{
 export const updatecategoryAPI=async(categoryDetails)=>{
     return await commonAPI("PUT",`${SERVERURL}/categories/${categoryDetails.id}`,categoryDetails)
 }
+

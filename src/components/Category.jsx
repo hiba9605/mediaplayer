@@ -4,7 +4,7 @@ import {Modal,Form,FloatingLabel,Button} from 'react-bootstrap'
 import { deleteCategoryAPI, getAllCategoryAPI, removeVideoAPI, saveCategoryAPI, updatecategoryAPI } from '../services/allAPI';
 import VideoCard from './VideoCard';
 
-const Category = ({setDeleteResponseFromCategory}) => {
+const Category = ({setDeleteResponseFromCategory,deleteResponseFromView}) => {
   const [allCategories,setAllCategories]=useState([])
   const [categoryName,setCategoryName]=useState("")
 
@@ -13,7 +13,8 @@ const Category = ({setDeleteResponseFromCategory}) => {
   useEffect(()=>{
     getAllCategories()
 
-  },[])
+
+  },[deleteResponseFromView])
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -80,6 +81,13 @@ const handleSaveCategory=async ()=>{
       
     
     }
+
+    const categoryVideoDragStarted=(e,dragVideoDetails,categoryDetails)=>{
+      console.log("inside categoryVideoDragStarted ");
+      let dragData={video:dragVideoDetails,categoryDetails}
+      e.dataTransfer.setData("dragData",JSON.stringify(dragData))
+      
+    }
     
 
 
@@ -107,7 +115,7 @@ const handleSaveCategory=async ()=>{
        {
         categoryDetails?.allVideos?.length>0 &&
         categoryDetails?.allVideos?.map(video=>(
-          <div key={video?.id} className="col-lg-4">
+          <div draggable={true} onDragStart={e=>categoryVideoDragStarted(e,video,categoryDetails)} key={video?.id} className="col-lg-4">
           {/* video card */}
           <VideoCard  insideCategory={true} displayData={video}/>
         </div>
